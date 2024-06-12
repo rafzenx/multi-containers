@@ -9,7 +9,7 @@ script:
   - docker run urizenx/react-test npm test -- --coverage
 
 after_success:
-  docker build -t urizenx/multi-client ./client
-  docker build -t urizenx/multi-nginx ./nginx
-  docker build -t urizenx/multi-server ./server
-  docker build -t urizenx/multi-worker ./worker
+  - docker build -t urizenx/multi-client ./client
+  - docker build -t urizenx/multi-nginx ./nginx
+  - docker build -t urizenx/multi-server ./server
+  - docker build -t urizenx/multi-worker ./worker
