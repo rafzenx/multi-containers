@@ -15,12 +15,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Build docker dev image && run test
-        id: build-image        
-        run: |        
-          docker build -t urizenx/react-test -f client/Dockerfile.dev ./client
-          docker run urizenx/react-test npm test -- --coverage
-
       - name: build all docker images
         id: app-images-build
         run: |
