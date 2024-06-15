@@ -1,0 +1,33 @@
+name: build docker images and run tests for multi containers app
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Build docker dev image && run test
+        id: build-image        
+        run: |        
+          docker build -t urizenx/react-test -f client/Dockerfile.dev ./client
+          docker run urizenx/react-test npm test -- --coverage
+
+      - name: build all docker images
+        id: app-images-build
+        run: |
+          docker build -t urizenx/multi-client ./client
+          docker build -t urizenx/multi-nginx ./nginx
+          docker build -t urizenx/multi-server ./server
+          docker build -t urizenx/multi-worker ./worker
+
+
+ 
